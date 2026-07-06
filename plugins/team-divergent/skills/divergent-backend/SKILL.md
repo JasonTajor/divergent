@@ -69,6 +69,15 @@ Problems you can see early never become emergency refactors.
 - Expose meaningful **health** of the system (dependencies reachable, not just "process up").
 - Never log secrets, tokens, or PII — observability is not an excuse to leak.
 
+## Quick-task recipes (the backend slash commands)
+These are the plugin's focused commands — each is a standard, repeatable pass over existing server code. Apply the recipe whether the user typed the command or asked in prose; the sections above are the law each recipe enforces.
+- **`/optimize`** — hunt N+1 (per-row → set-based/eager fetch), add indexes matching real WHERE/ORDER BY, stop `SELECT *` on hot paths, bound unbounded queries, prefer bulk ops. Behavior unchanged; measure before→after; run the suite.
+- **`/secure-endpoint`** — authenticated ≠ allowed: add per-resource ownership/role checks (fix IDOR), rate-limit abuse, parameterized queries, sanitized I/O, consistent error envelope + correct status codes. Add auth-failure / unauthorized-access tests.
+- **`/validate`** — validate every field at the boundary (type, length, range, format, required/optional); reject with the consistent envelope (422/400) listing failures; keep it in a schema/service, not scattered through the handler. Add validation-failure tests.
+- **`/paginate`** — add pagination (cursor or limit/offset per repo convention) with a default + max page size, bounded at the DB; consistent items+page-metadata shape; index-backed ORDER BY; keep the contract in sync. Test first/last/over-max page.
+- **`/migration`** — additive-first, reversible migration with DB-level constraints (NOT NULL/UNIQUE/FK/checks), correct types (integer cents/decimal money, UTC, opaque IDs); working, tested rollback; use the repo's migration workflow. Run up and down.
+Every recipe finishes the same way: touch backend files only, run the test suite, and report what changed (with before→after cost for `/optimize`).
+
 ## Anti-patterns (never do)
 - Coding before the data model and access patterns are decided
 - String-built SQL under any circumstance

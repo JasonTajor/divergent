@@ -52,6 +52,16 @@ Top priority for the owner: the WHOLE project renders from one component library
 ## Accessibility as engineering
 Semantic HTML first (button is a `<button>`); keyboard path tested for every flow; focus managed on route/dialog changes; ARIA only where semantics can't do the job — wrong ARIA is worse than none.
 
+## Quick-task recipes (the frontend slash commands)
+These are the plugin's focused commands — each is a standard, repeatable pass over existing UI. Apply the recipe whether the user typed the command or asked in prose; the sections above are the law each recipe enforces.
+- **`/responsive`** — make a page/component responsive, mobile-first (mobile → tablet → desktop). No overflow or horizontal body scroll; wide content scrolls in its own container; spacing on the 8pt grid; touch targets ≥44px. Verify each breakpoint, then lint + build.
+- **`/fix-spacing`** — snap every margin/padding/gap/size to the 8pt scale via tokens; kill magic values (13/17/22px); equalize gaps between repeated items; fix vertical rhythm and proximity. Spacing only — don't touch color/type unless it blocks alignment.
+- **`/fix-colors`** — replace raw/random hex with semantic palette tokens; hold Color Wheel harmony + 60-30-10 + one accent; add missing colors as derived named tokens (never inline); remove unmotivated gradients; verify WCAG AA contrast.
+- **`/a11y`** — semantic HTML, full keyboard path + logical focus order, focus managed on route/dialog changes, ARIA only where semantics can't do the job, accessible names, reduced-motion, AA contrast. Verify with a keyboard-only walkthrough.
+- **`/states`** — add every missing state (idle, loading, empty, error with retry + next step, success, disabled) with real microcopy, wired to the data layer. No happy-path-only screens.
+- **`/polish`** — presentation-only pass: sharpen hierarchy (one primary action), fix alignment/typography, remove the AI-slop tells. Behavior and content unchanged; reuse the component system, never fork.
+Every recipe finishes the same way: touch frontend files only, verify (build/lint, exercise the change), and report what changed.
+
 ## Anti-patterns (never do)
 - `any`-typed escape hatches or ts-ignore to silence the compiler
 - Copy-pasting a component and tweaking it instead of extracting a variant / forking the canonical primitive per feature

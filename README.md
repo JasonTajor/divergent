@@ -83,6 +83,33 @@ Handoffs still flow through `docs/specs/<feature-slug>/` (see below), so a spec
 written by `/team-divergent:research` is picked up by `/team-divergent:design`,
 and so on — the commands are just a faster way to invoke each stage.
 
+### Quick-task commands
+
+Focused, run-it-now commands for the everyday jobs. Each fires Three or Four
+with a strong pre-baked brief and operates on what you name (or your most recent
+changes if you name nothing). No spec or pipeline required.
+
+**Frontend (Three)**
+
+| Command | What it does |
+|---------|--------------|
+| `/team-divergent:responsive` | Make a page/component responsive, mobile-first, on the 8pt grid — no overflow or horizontal scroll. |
+| `/team-divergent:fix-spacing` | Snap all spacing to the 8pt grid via tokens; kill magic values and uneven gaps. |
+| `/team-divergent:fix-colors` | Replace raw/random colors with harmony-based palette tokens; fix contrast; remove unmotivated gradients. |
+| `/team-divergent:a11y` | Accessibility fix — semantic HTML, keyboard, focus, ARIA, contrast, reduced-motion (WCAG AA). |
+| `/team-divergent:states` | Add the missing UI states (loading/empty/error/success/disabled) with real copy. |
+| `/team-divergent:polish` | Presentation-only polish — hierarchy, alignment, typography; strips the generic "AI look." |
+
+**Backend (Four)**
+
+| Command | What it does |
+|---------|--------------|
+| `/team-divergent:optimize` | Fix N+1s, missing indexes, `SELECT *`, unbounded queries — behavior unchanged. |
+| `/team-divergent:secure-endpoint` | Enforce auth + per-resource ownership (fix IDOR), rate-limit, sanitize, consistent errors. |
+| `/team-divergent:validate` | Add strict boundary validation (type/length/range/format) with the consistent error envelope. |
+| `/team-divergent:paginate` | Add pagination + limits to a list endpoint, bounded at the DB, index-backed. |
+| `/team-divergent:migration` | Write a safe, additive, reversible migration with DB-level constraints and a tested rollback. |
+
 ## The team
 
 Every member is a 20–30 year veteran with a bundled personal playbook and an optional power tool:
