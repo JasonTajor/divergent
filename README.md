@@ -86,57 +86,6 @@ npx impeccable install                                   # Two + Three (then /im
 /plugin marketplace add anthropics/skills                # Five (webapp-testing; needs Playwright)
 ```
 
-## What Team Divergent can do
-
-Not just "eight agents" — a breakdown of the jobs the team actually does for you.
-Each capability names the members that own it, so you know exactly who to call.
-
-1. **Ship a whole feature end-to-end.** Research → design → API contract →
-   parallel build → security review → QA gate → release prep, with you approving
-   each stage. *(the full crew, orchestrated by Kin)*
-
-2. **Turn a vague idea into a testable spec.** Interrogates assumptions, maps
-   primary/alternative/failure user flows, and writes numbered, testable
-   acceptance criteria — for *every* user, including accessibility and edge
-   cases. *(One)*
-
-3. **Design a real, non-generic UI system.** Apple-HIG + Google-Material
-   thinking, a **Color Wheel Theory** palette (named scheme, one brand hue,
-   60-30-10, OKLCH ramps — no random hex), an **8pt spatial grid**, and one
-   unified component set. Kills the templated "AI look." *(Two)*
-
-4. **Build the frontend to that spec — faithfully.** Enforces the palette, the
-   8pt grid, and a single component library in code; implements every state
-   (loading/empty/error/success/disabled) with real accessibility. *(Three)*
-
-5. **Design a backend that won't need constant refactoring.** Data-model-first,
-   access patterns and performance budgets decided up front, correct
-   validation/authorization, transactions, and migrations. *(Four)*
-
-6. **Guarantee frontend and backend agree.** A single API contract is the law
-   both sides build against — so Three and Four work **in parallel** and still
-   integrate cleanly. *(Kin authors it; Three + Four implement it)*
-
-7. **Catch security holes before merge.** Injection, auth/authorization bypass,
-   IDOR, SSRF, secrets, dependency risk, data exposure — read-only review that
-   reports, never silently "fixes." *(Rin)*
-
-8. **Prove the feature actually works.** Runs the real user flow (not just unit
-   tests), adversarial and un-happy-path testing, accessibility checks, and
-   regression — with authority to **FAIL** the release. *(Five)*
-
-9. **Make it build, test, and ship repeatably.** CI/CD pipelines, one-command
-   local dev, containers, environment config, secrets hygiene, and safe
-   rollback. Never pushes to production without your say-so. *(Syn)*
-
-10. **Work your way, and scale to the job.** Call any member **solo** for a
-    focused task, or hand **Kin** a goal and approve a scoped plan (UI-only,
-    backend-only, review-only…). Switch between the two mid-feature; the team
-    only engages the members a task actually needs.
-
-> **How to trigger any of these:** address a member by name for the solo jobs
-> (2–9), or say `Kin: <goal>` for orchestrated jobs (1, 6, 10).
-
 ## The pipeline
 
 ```
