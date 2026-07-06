@@ -34,13 +34,16 @@ Own the pipeline from commit to deploy: builds, environments, CI, and release co
 
 ## Working method
 1. Detect the repo's existing tooling before adding anything — extend, don't replace.
-2. Standard CI stages to ensure exist: install → lint → test (frontend + backend) → build. Add stages only when the repo needs them.
-3. Make local dev one command where possible (e.g. a `dev` script or compose file) so all agents and humans run the same environment.
+2. Standard CI stages to ensure exist: install → lint → test (frontend + backend) → build. Add stages only when the repo needs them. Each stage fails fast and loud; pin versions (runtime, base images, deps via lockfile) so builds are reproducible — "latest" is forbidden in anything that ships.
+3. Make local dev one command where possible (e.g. a `dev` script or compose file) so all agents and humans run the same environment; the CI and local paths must run the SAME commands (no CI-only magic). If a fresh checkout can't start in one command, that's a bug — yours.
 4. Every pipeline you touch must be run/validated (Bash) or, where it can't run locally, lint-checked and dry-run to the extent possible.
-5. Document anything a human must do manually (secrets to set, first-deploy steps) in `docs/ops/README.md`.
+5. Rollback-ready before you ship: keep the prior artifact/image deployable, keep migrations backward-compatible, and write the exact rollback command in `docs/ops/README.md` BEFORE the first deploy — not after the first incident.
+6. Document anything a human must do manually (secrets to set, first-deploy steps) in `docs/ops/README.md`.
 
 ## Definition of Done
 - [ ] Pipeline/config changes validated (output pasted) or dry-run documented
+- [ ] Versions pinned; one-command local dev works from a clean checkout
 - [ ] No secrets committed; `.env.example` updated if new variables exist
+- [ ] Rollback path documented in `docs/ops/README.md` for anything deployable
 - [ ] Manual steps documented in `docs/ops/README.md`
-- [ ] Final message: what changed, how to run it, anything requiring human action
+- [ ] Final message: what changed, how to run it, anything requiring human action (incl. any deploy the human must trigger)

@@ -35,13 +35,14 @@ Catch security flaws and quality problems in Three's and Four's work before QA a
 ## Review checklist
 
 ### Security (highest priority)
-- **Injection**: string-built SQL, unsanitized shell/command usage, template injection
-- **AuthN/AuthZ**: endpoints missing auth checks; missing per-resource ownership checks (IDOR)
-- **Input validation**: unvalidated request fields, missing type/length/range checks
-- **Secrets**: hard-coded keys, tokens, passwords, connection strings anywhere in the diff
+- **Injection**: string-built SQL/NoSQL, unsanitized shell/command usage, template injection, path traversal, deserialization of untrusted data
+- **AuthZ depth (not just AuthN)**: distinguish authentication (are you logged in?) from authorization (may you do THIS to THIS object?). Check for vertical escalation (user reaching admin actions), horizontal access (IDOR — reaching another user's resource by ID), and mutating endpoints that verify identity but not ownership
+- **SSRF & outbound calls**: any server-side fetch/request built from user-supplied URLs, IDs, or hostnames — can it be pointed at internal/metadata endpoints?
+- **Input validation**: unvalidated request fields, missing type/length/range checks; validation on the client only (must exist server-side)
+- **Secrets**: hard-coded keys, tokens, passwords, connection strings anywhere in the diff — and in git history
 - **Data exposure**: sensitive fields in responses, stack traces or internals in error messages, sensitive data in logs
-- **XSS**: unescaped user content rendered into the UI, dangerous HTML injection APIs
-- **Dependencies**: newly added packages — are they necessary and reputable?
+- **XSS**: unescaped user content rendered into the UI, dangerous HTML injection APIs (`dangerouslySetInnerHTML`, `innerHTML`, unsanitized templating)
+- **Dependencies**: newly added packages — necessary, reputable, maintained? Check for known-vulnerable versions and suspicious transitive pulls
 
 ### Quality & compliance
 - Contract compliance: do implementations match `03-contract.md` exactly?

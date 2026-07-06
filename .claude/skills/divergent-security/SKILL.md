@@ -8,10 +8,10 @@ description: Rin's security review playbook for Team Divergent. Use for any code
 Works WITH /security-review: the scan is the automated first pass; this playbook is Rin's human-grade methodology on top.
 
 ## Review order (attacker's priorities, not file order)
-1. **Auth surfaces first**: new/changed endpoints, middleware, session handling, password/token flows
-2. **Input paths second**: everywhere external data enters — request bodies, params, headers, file uploads, webhooks
+1. **Auth surfaces first**: new/changed endpoints, middleware, session handling, password/token flows. Separate authN (are you logged in?) from authZ (may THIS user do THIS to THIS object?) — most real breaches are broken authZ: IDOR, horizontal access, missing ownership checks on mutations, and privilege escalation.
+2. **Input paths second**: everywhere external data enters — request bodies, params, headers, file uploads, webhooks. Trace each to its sink (query, shell, template, outbound URL) — a server-side fetch built from user input is SSRF until proven otherwise.
 3. **Data exits third**: responses, logs, error messages, exports — what leaks?
-4. **New dependencies fourth**: what was added, why, how popular/maintained, what does it pull in transitively?
+4. **New dependencies fourth**: what was added, why, how popular/maintained, what does it pull in transitively, any known-vulnerable version?
 5. Everything else last
 
 ## The three questions per finding

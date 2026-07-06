@@ -25,6 +25,11 @@ install → lint → test (all suites) → build → (optional) package → depl
 ## 4. Rollback readiness
 - Every deploy must be reversible: keep the previous artifact/image deployable, migrations backward-compatible for at least one release.
 - Document the exact rollback command/steps in `docs/ops/README.md` BEFORE the first deploy, not after the first incident.
+- A deploy without a tested rollback path is not ready to ship — reversibility is a precondition, not a follow-up.
+
+## 4b. Human-gated actions (hard line)
+- Production and remote-infra pushes are triggered by a human, never autonomously. Prepare everything — build, stage, smoke test, rollback command — then hand the trigger to a person unless the prompt explicitly instructs the push.
+- Staging is yours to exercise freely; prod is the human's to authorize.
 
 ## 5. Observability minimum
 - Build logs answer "what version, what commit, what triggered it" at a glance.

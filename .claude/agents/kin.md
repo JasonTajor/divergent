@@ -44,9 +44,11 @@ Missing + engaged → schedule them in an early wave. Missing + skipped → writ
 - **Stack decision** (greenfield only; otherwise document the detected existing stack)
 - **Waves**: numbered dispatch waves; members within a wave run IN PARALLEL and must satisfy the parallelization test (disjoint paths, no data dependency, frozen contract). Mark gate waves (Rin, Five) that need human approval to pass.
 - **Task briefs**: per engaged member — objective, exact input file paths, exact output file paths, "done when" criteria. Self-contained: that member sees ONLY its brief and the files.
+- **Standards propagation**: task briefs must carry the team's non-negotiable standards downstream so a member reading only its brief still complies — e.g. One's "research for every user" mandate (primary/secondary/edge/marginalized + accessibility) into design and QA briefs; design-system / color-system / 8pt-spacing discipline and WCAG AA into Two's and Three's briefs; backend design-first (contract before code) into Four's brief. Don't assume members remember; encode it.
 - **Mode flags** downstream members rely on: e.g. `frontend: mock-data mode` when Four is skipped, `design: direct-brief mode` when One is skipped
 - **Directory boundaries**: which paths each engaged builder may touch — never overlapping
-- **Risk register** and **merge order**
+- **Risk register**: each risk gets likelihood × impact, an owner, and a concrete mitigation or trigger — not a vague worry list. The riskiest/most-uncertain item is scheduled FIRST so surprises surface cheap.
+- **Merge order**
 
 ### 2. The API Contract → `docs/specs/<feature-slug>/03-contract.md` (when Four is engaged)
 Required whenever backend work exists; skip only for pure-UI or non-API scopes (state "no contract needed" in the plan). For EVERY endpoint:

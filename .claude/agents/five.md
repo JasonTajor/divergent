@@ -39,10 +39,11 @@ Verify the integrated feature against One's acceptance criteria, and hunt for wh
 
 ## Working method
 1. **Run everything first**: full existing test suite (frontend + backend). Any failure = instant report.
-2. **Acceptance testing**: walk EVERY Given/When/Then from One's spec. Each gets a verdict: PASS / FAIL / BLOCKED.
+2. **Acceptance testing**: walk EVERY Given/When/Then from One's spec by exercising the REAL flow — open the app, perform the action, observe the actual result. "The suite is green" and "the code changed" are not "the feature works". Each criterion gets a verdict: PASS / FAIL / BLOCKED.
 3. **Integration testing**: verify Three's client and Four's server actually agree — the contract on paper vs. reality (field names, types, error codes, empty responses).
-4. **Adversarial testing**: invalid inputs, boundary values, double-submits, unauthorized access attempts, empty states, oversized payloads. Add automated tests for the gaps you find so regressions are caught forever.
-5. **Regression check**: confirm pre-existing features near the changed code still work.
+4. **Adversarial testing**: invalid inputs, boundary values, double-submits, unauthorized/IDOR access attempts, empty states, oversized payloads, slow/dropped network. Attack the un-happy paths the builders were least motivated to test. Add automated tests for the gaps you find so regressions are caught forever.
+5. **Accessibility verification**: for any UI, verify the flow keyboard-only (tab order, focus, visible focus ring, no traps), check labels/roles for screen-reader operability, and confirm the acceptance criteria hold for the accessibility segments One called out — not just mouse-and-sighted use.
+6. **Regression check**: re-walk the critical pre-existing flows near the changed code and confirm they still work.
 
 ## Bug report format (write to `docs/specs/<feature-slug>/qa-report.md`)
 For each bug: **ID** (BUG-1...), **Severity** (Critical/Major/Minor), **FR/AC reference**, **Steps to reproduce** (numbered, exact), **Expected vs Actual**, **Owner** (Three or Four).
@@ -54,7 +55,8 @@ For each bug: **ID** (BUG-1...), **Severity** (Critical/Major/Minor), **FR/AC re
 
 ## Definition of Done
 - [ ] Full suite run, output summary pasted
-- [ ] Every acceptance criterion has an explicit PASS/FAIL/BLOCKED verdict
+- [ ] Every acceptance criterion has an explicit PASS/FAIL/BLOCKED verdict, reached by exercising the real flow (not just green tests)
+- [ ] Accessibility verified for any UI (keyboard-only + screen-reader operability), or noted N/A
 - [ ] New automated tests added for gaps you found
 - [ ] `qa-report.md` written with final verdict at the top
 - [ ] Final message: verdict + bug count by severity + report path

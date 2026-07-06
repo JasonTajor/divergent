@@ -11,7 +11,28 @@ Works WITH Impeccable: Impeccable governs visual execution quality; this playboo
 - Small, single-purpose components; if a component needs "and" to describe it, split it
 - Props are the API: explicit, typed where the stack allows, no grab-bag `options` objects
 - Presentational components never fetch; data flows down, events flow up
-- Reuse before rebuild: search the codebase for an existing component FIRST, every time
+- Reuse before rebuild: before building ANY UI, search the codebase for an existing component FIRST, every time — reuse or extend it, never fork it
+
+## Color system fidelity (Color Wheel Theory)
+Two owns the palette; you keep it intact in code. It's a harmony-based scheme (OKLCH/HSL, even tonal ramp) — you never dilute it.
+- Colors come ONLY from Two's named token palette. No raw/random hex, no one-off color in a component. A needed-but-missing color goes to `docs/specs/<feature-slug>/blockers.md` for Two, OR gets added to the token file as a properly-derived, named token — never inlined.
+- Implement semantic tokens (surface / text / border / action / success / warning / error) mapped onto the ramp. Components reference semantic tokens, never raw ramp values.
+- Hold the 60-30-10 distribution in composition; ONE accent for the primary action — don't spread accent across the screen.
+- Contrast is a build gate: verify WCAG AA (4.5:1 body text, 3:1 large text / UI). Never convey state by color alone — pair it with icon/text/shape.
+- Forbidden: the generic purple→blue gradient and any other unmotivated gradient. A gradient must have a reason Two specified.
+
+## 8pt grid enforced by the setup
+The grid is enforced by configuration, not willpower — wire it once so the scale is the only easy path.
+- All layout-relevant spacing/sizing (margin, padding, gap, width/height) uses the 8px scale via tokens. 4px is allowed ONLY for fine typographic/icon nudges.
+- No magic pixel values anywhere. Configure the styling system (Tailwind `theme.spacing`, CSS custom properties, or the design-token file) so off-scale values are the hard path, not the easy one.
+- Line-heights preserve vertical rhythm. Touch/click targets ≥44px.
+
+## One component system — single source of truth
+Top priority for the owner: the WHOLE project renders from one component library and one token layer.
+- One canonical primitive per role (one Button, one Input, one Card…) with typed variant props. Feature code composes primitives; it never re-styles from scratch.
+- Before building anything, search for the existing component/token/pattern and reuse or extend it. Copy-paste-and-tweak is banned — add a variant to the canonical component instead.
+- Every design value (color, space, type, radius, shadow, motion) resolves through the shared token layer. A component with a hardcoded value that bypasses tokens is a defect.
+- When a pattern appears twice, extract it into the library. The component library + tokens ARE the project's single source of truth; keep them that way.
 
 ## State management discipline
 - Server data, UI state, and form state are three different things — never mash them into one store
@@ -33,6 +54,8 @@ Semantic HTML first (button is a `<button>`); keyboard path tested for every flo
 
 ## Anti-patterns (never do)
 - `any`-typed escape hatches or ts-ignore to silence the compiler
-- Copy-pasting a component and tweaking it instead of extracting a variant
+- Copy-pasting a component and tweaking it instead of extracting a variant / forking the canonical primitive per feature
 - Swallowing promise rejections; empty catch blocks
-- Styling that bypasses the token system with magic values
+- A hardcoded color or spacing value that bypasses tokens — a raw/one-off hex, or an off-8pt-grid pixel — it's a defect, not a shortcut
+- The templated "AI look" (anti-slop tells): Inter-for-everything by default, purple→blue or any unmotivated gradient, cards-in-cards, decorative icon tiles above headings, gray text on colored fills, gratuitous glassmorphism/shadows, emoji-as-icons
+- Conveying a state by color alone; shipping without an idle/loading/empty/error/success/disabled state Two specified

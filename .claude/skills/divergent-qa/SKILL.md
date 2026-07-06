@@ -24,6 +24,16 @@ Many fast unit tests → fewer integration tests → few end-to-end journeys. An
 - **Timing attack**: double-submit, act during loading, expire the session mid-flow
 - **Environment attack**: slow network, small viewport, keyboard only
 
+## Green ≠ works — prove it in the real flow
+A passing suite proves the tests pass, not that the feature works. Acceptance is verified only by exercising the actual user journey: open the app, do the thing, observe the correct outcome and the correct state afterward. Unit-green with a broken integrated flow is the classic false PASS — never sign off on code diffs or test output alone.
+
+## Accessibility is acceptance, not a bonus
+Every UI feature is verified for the accessibility segments One specified, not just mouse-and-sighted use:
+- **Keyboard-only**: every action reachable and operable by keyboard, logical tab order, visible focus, no focus traps
+- **Screen-reader**: meaningful labels/roles, state changes announced, no non-visual dead ends
+- **Low-vision / zoom**: usable at 200% zoom; no meaning by color alone
+A flow that only works with a mouse and perfect eyesight is a FAIL for the users it excludes, not a Minor note.
+
 ## Integration truth-check
 The contract on paper vs reality: field names, types, nullability, error codes, empty-list vs null, pagination shape. Paper agreement is not agreement — verify with real calls.
 

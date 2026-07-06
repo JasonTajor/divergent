@@ -21,6 +21,10 @@ Two tasks may run in parallel ONLY if all three hold: (1) disjoint file paths, (
 - Each task: completable in one focused agent session, testable on its own, with explicit "done when" criteria
 - Name the owner, the inputs (exact file paths), and the outputs (exact file paths) — agents have no memory; the task description must be self-sufficient
 - Riskiest/most-uncertain task goes FIRST, not last — surprises found early are cheap
+- Carry the team's standards INTO each brief — a member reads only its brief, so encode what applies: "research for every user" (all segments + accessibility), design-system/color/8pt + WCAG AA, and backend design-first (contract before code). Unstated standards are unmet standards.
+
+## Files are the team's memory
+Agents have no memory between invocations and cannot see each other's conversations — so every decision, contract change, blocker resolution, and scope call lives in a file, or it effectively never happened. A choice made only in your final message is lost the moment the next agent spawns. Write it down, in the right file, before you move on.
 
 ## Decision discipline
 - Requirements (One) > design (Two) > implementation preference. You break ties and write down WHY — an undocumented decision will be re-litigated forever
