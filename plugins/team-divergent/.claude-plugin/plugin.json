@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "team-divergent",
+  "displayName": "Team Divergent",
+  "version": "1.1.0",
+  "description": "Eight veteran Claude Code subagents that work as one software team — UX research, UI/UX design, frontend, backend, QA, security review, DevOps, and a tech-lead orchestrator. Each carries a personal playbook skill. Use members solo by name, or hand the orchestrator a goal and dispatch the crew in parallel waves.",
+  "author": {
+    "name": "Jason Tajor",
+    "url": "https://github.com/JasonTajor"
+  },
+  "homepage": "https://github.com/JasonTajor/divergent",
+  "repository": "https://github.com/JasonTajor/divergent",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "subagents",
+    "team",
+    "orchestration",
+    "design-system",
+    "color-theory",
+    "8pt-grid",
+    "frontend",
+    "backend",
+    "qa",
+    "security",
+    "devops"
+  ]
+}

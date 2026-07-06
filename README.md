@@ -1,79 +1,97 @@
-# Team Divergent — Parallel Development Pipeline
+# Team Divergent — a full software team as a Claude Code plugin
 
-**Divergent**: eight veteran Claude Code subagents that work as one software team,
-with a dispatcher protocol so you can run the full pipeline, call any member solo,
-or just tell Kin what you want and approve his dispatch plan.
-Each member carries a personal playbook skill (bundled in `.claude/skills/`)
-plus a power-tool skill from the ecosystem.
+**Divergent** is eight veteran Claude Code subagents that work as one software
+team, plus a dispatcher protocol so you can run the full pipeline, call any
+member solo, or just tell **Kin** what you want and approve his dispatch plan.
+Each member carries a personal playbook skill. Distributed as an installable
+plugin through this repo's built-in **marketplace** (Claude Code's package
+manager) — install it once and use the team in any project.
 
-**Repo layout** (drop-in for any project):
+## Install (terminal Claude Code)
+
+Inside a Claude Code session, run:
+
 ```
-CLAUDE.md                     <- dispatcher protocol (main session reads this)
-.claude/agents/*.md           <- the 8 members
-.claude/skills/divergent-*/   <- the 8 personal playbooks
+/plugin marketplace add JasonTajor/divergent
+/plugin install team-divergent@divergent
 ```
-Drop the `.claude/agents/` folder into the root of any project. The team is
-stack-agnostic: every agent detects and follows your repo's existing
-conventions, and Kin picks the stack on greenfield projects.
 
-## The Team
+That's it. `marketplace add` registers this repo as a package source (the
+"package manager"); `install` pulls the `team-divergent` plugin from it.
+Restart if prompted, then run `/agents` — you should see all eight members
+namespaced as `team-divergent:one … team-divergent:rin`.
 
-Every member is a 20–30 year veteran with a personal playbook (bundled) and a power tool (installed):
+**Manage it like any package:**
 
-| Member | Role | Personal playbook (bundled) | Power tool (install) |
-|--------|------|-----------------------------|----------------------|
-| **One**   | Senior UX Analyst, 25+ yrs | `divergent-research` | Superpowers → brainstorming |
-| **Two**   | Senior UI/UX Designer, 25+ yrs | `divergent-design` | Impeccable (design side) |
-| **Three** | Senior Frontend Engineer, 20+ yrs | `divergent-frontend` | Impeccable (execution side) |
-| **Four**  | Senior Backend Developer, ~30 yrs | `divergent-backend` | Superpowers → TDD + systematic-debugging |
-| **Five**  | Senior QA, 25+ yrs | `divergent-qa` | webapp-testing (official Anthropic) |
+```
+/plugin list                         # what's installed / enabled
+/plugin update team-divergent        # pull a newer version
+/plugin disable team-divergent       # turn off without removing
+/plugin uninstall team-divergent     # remove
+/plugin marketplace update divergent # refresh the source
+```
+
+Prefer the shell? The same commands exist non-interactively:
+
+```
+claude plugin marketplace add JasonTajor/divergent
+claude plugin install team-divergent@divergent
+```
+
+> **Note:** package name is `team-divergent`, marketplace name is `divergent`,
+> so the install target is `team-divergent@divergent`.
+
+## Use it
+
+- **Solo — call any member by name** (they're fully standalone):
+  > `team-divergent:three` fix the responsive layout on the navbar
+  > Rin, security-review my uncommitted changes
+  > One: research requirements for a referral program
+
+- **Orchestrated — hand Kin a goal**, approve his plan, and the session
+  dispatches the crew in parallel waves:
+  > Kin: build a pricing page — UI design and frontend only, no backend.
+
+- **Load the dispatcher protocol** into the current session any time with the
+  bundled command:
+  ```
+  /team-divergent:divergent
+  ```
+  To have it apply automatically in a project, copy that protocol into the
+  project's root `CLAUDE.md`.
+
+## The team
+
+Every member is a 20–30 year veteran with a bundled personal playbook and an optional power tool:
+
+| Member | Role | Personal playbook (bundled) | Power tool (optional) |
+|--------|------|-----------------------------|-----------------------|
+| **One**   | Senior UX Analyst, 25+ yrs — research for *every* user | `divergent-research` | Superpowers → brainstorming |
+| **Two**   | Senior UI/UX Designer, 25+ yrs — Apple HIG + Google Material, Color Wheel Theory, 8pt | `divergent-design` | Impeccable (design side) |
+| **Three** | Senior Frontend Engineer, 20+ yrs — enforces the palette, 8pt grid & one component system | `divergent-frontend` | Impeccable (execution side) |
+| **Four**  | Senior Backend Developer & Architect, ~30 yrs — design-first, optimization up front | `divergent-backend` | Superpowers → TDD + systematic-debugging |
+| **Five**  | Senior QA, 25+ yrs — real-flow verification, accessibility as acceptance | `divergent-qa` | webapp-testing (official Anthropic) |
 | **Kin**   | Tech Lead / Orchestrator, 30 yrs | `divergent-orchestration` | Superpowers → writing-plans + subagents + worktrees |
-| **Syn**   | DevOps Engineer, 25+ yrs | `divergent-devops` | (infra-specific skills as needed: Helm, AWS CDK...) |
+| **Syn**   | DevOps Engineer, 25+ yrs | `divergent-devops` | (infra-specific skills as needed: Helm, AWS CDK…) |
 | **Rin**   | Security & Code Reviewer, 25+ yrs | `divergent-security` | /security-review (built-in) + Trail of Bits (optional) |
 
-All eight playbooks ship in this zip under `.claude/skills/divergent-*/SKILL.md` —
-they encode each member's craft standards, checklists, and anti-patterns. Edit them
-to tune your team's standards; every member re-reads their playbook on every task.
+Every agent degrades gracefully: if its power tool isn't installed, it reports
+the gap and applies the same discipline manually instead of silently skipping.
+Optional power tools:
 
-## Setup
+```
+npx impeccable install                                   # Two + Three (then /impeccable init)
+/plugin marketplace add obra/superpowers-marketplace     # One, Four, Kin
+/plugin install superpowers@superpowers-marketplace
+/plugin marketplace add anthropics/skills                # Five (webapp-testing; needs Playwright)
+```
 
-1. Get the team into your project root — either extract this zip there, or
-   once you've pushed this to GitHub:
-   ```
-   git clone https://github.com/<you>/divergent-team.git /tmp/divergent
-   cp -r /tmp/divergent/.claude /tmp/divergent/CLAUDE.md your-project/
-   ```
-   (`.claude/` and `CLAUDE.md` must sit at your project's root. If your project
-   already has a CLAUDE.md, append the Dispatcher Protocol section to it.)
-   Restart Claude Code in that project; run `/agents` to confirm all 8 loaded.
-2. Install **Impeccable** (Two + Three):
-   ```
-   npx impeccable install
-   ```
-   then run `/impeccable init` once inside Claude Code to save your design context.
-3. Install **Superpowers** (One, Four, Kin):
-   ```
-   /plugin marketplace add obra/superpowers-marketplace
-   /plugin install superpowers@superpowers-marketplace
-   ```
-4. Install **webapp-testing** (Five) — requires Playwright locally:
-   ```
-   /plugin marketplace add anthropics/skills
-   ```
-   then install the webapp-testing skill from that marketplace.
-5. **Nothing to install** for Rin (`/security-review` ships with Claude Code)
-   or Syn (his playbook is bundled). Optional hardening: Trail of Bits security
-   skills for Rin on security-sensitive projects.
-
-Every agent degrades gracefully: if its skill isn't installed, it reports the
-gap and applies the same discipline manually instead of silently skipping it.
-
-## The Pipeline
+## The pipeline
 
 ```
 One ──▶ Two ──▶ Kin ──▶ ┌─ Three ─┐ ──▶ Rin ──▶ Five ──▶ Syn
-(research) (design) (plan+       │  (parallel) │  (review)  (QA gate)  (ship)
-                     contract)   └─ Four  ──┘
+(research)(design)(plan+  │(parallel)│  (review)  (QA gate)  (ship)
+                  contract)└─ Four  ─┘
 ```
 
 Three and Four run **in parallel** — both build against Kin's API contract
@@ -92,49 +110,36 @@ Agents have no memory between runs. All handoffs happen through files in
 - `review-rin.md` — Rin's security review
 - `qa-report.md` — Five's verdict
 
-## Control model
+## Repo layout (this is both the marketplace and the plugin)
 
-Every member is **standalone AND team-capable** — the same agent file handles
-both. You hold direct control (call any member yourself, in any order, even in
-parallel by asking the main session to launch several at once) or hand Kin
-delegated control for a goal. Switch freely: start solo with Two, then hand the
-result to Kin to distribute the rest.
+```
+.claude-plugin/marketplace.json          <- the package source ("package manager")
+plugins/team-divergent/
+  .claude-plugin/plugin.json             <- the plugin manifest
+  agents/*.md                            <- the 8 members
+  skills/divergent-*/SKILL.md            <- the 8 personal playbooks
+  commands/divergent.md                  <- /team-divergent:divergent dispatcher protocol
+```
 
-## Three ways to use the team
+Tune the team by editing the playbooks under `skills/divergent-*/` — every
+member re-reads its playbook on every task. Bump `version` in
+`plugins/team-divergent/.claude-plugin/plugin.json` when you publish changes so
+installers get the update.
 
-**1. Kin-orchestrated (recommended)** — tell Kin the goal; he plans the minimal
-crew and the main session dispatches it wave by wave, with your approval:
-> Kin: I only need UI design and frontend for a pricing page — no backend.
+## Manual install (no marketplace)
 
-Kin's manifest will engage Two → Three (mock-data mode), skip everyone else,
-and you approve before anything is built.
+Prefer to drop the team straight into one project instead of installing the
+plugin? Copy the members and playbooks into that project's `.claude/`:
 
-**2. Solo members** — call any member directly for focused work:
-> Three: fix the responsive layout on the navbar.
-> Rin: security-review my uncommitted changes.
-> One: research requirements for a referral program.
+```
+git clone https://github.com/JasonTajor/divergent.git /tmp/divergent
+mkdir -p your-project/.claude
+cp -r /tmp/divergent/plugins/team-divergent/agents your-project/.claude/agents
+cp -r /tmp/divergent/plugins/team-divergent/skills  your-project/.claude/skills
+cp /tmp/divergent/plugins/team-divergent/commands/divergent.md your-project/CLAUDE.md
+```
 
-**3. Full pipeline** — for complete features, step-by-step with you as the gate:
-
-## Example prompts (paste into Claude Code)
-
-Start a feature:
-> Use the **one** subagent to research and write requirements for: [describe your feature]. Use feature slug `my-feature`.
-
-Then, step by step (approve each stage yourself):
-> Use the **two** subagent to produce the design spec for `my-feature`.
-
-> Use the **kin** subagent to write the plan and API contract for `my-feature`.
-
-Parallel build (one prompt):
-> Launch the **three** and **four** subagents in parallel to implement `my-feature` per the plan and contract.
-
-Gate and ship:
-> Use the **rin** subagent to review all changes for `my-feature`.
-
-> Use the **five** subagent to run the QA gate for `my-feature`.
-
-> Use the **syn** subagent to make sure CI runs lint, tests, and build for this repo.
+Restart Claude Code in that project and run `/agents` to confirm all 8 loaded.
 
 ## Tips
 
@@ -145,4 +150,4 @@ Gate and ship:
 - **Blockers flow through Kin.** If Three or Four hit a contract gap, they log
   it to `blockers.md`; re-invoke Kin to resolve and version the contract.
 - **Failed QA loops back.** Five's report assigns each bug to Three or Four;
-  re-invoke the owner with the bug IDs, then re-run Rin (quick re-check) and Five.
+  re-invoke the owner with the bug IDs, then re-run Rin and Five.

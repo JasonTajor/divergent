@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "divergent",
+  "owner": {
+    "name": "Jason Tajor"
+  },
+  "description": "Team Divergent — a full veteran software team delivered as Claude Code subagents, with playbook skills and a dispatcher command.",
+  "plugins": [
+    {
+      "name": "team-divergent",
+      "source": "./plugins/team-divergent",
+      "description": "Eight veteran subagents (research, design, frontend, backend, QA, security, DevOps, and an orchestrator) plus their personal playbook skills and a dispatcher command. Research-driven design (Apple HIG + Google Material), strict Color Wheel Theory + 8pt system, unified components, and a design-first backend.",
+      "category": "workflow",
+      "keywords": ["agents", "subagents", "team", "orchestration", "design-system", "frontend", "backend"]
+    }
+  ]
+}

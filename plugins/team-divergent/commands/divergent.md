@@ -1,8 +1,14 @@
+---
+description: Activate the Team Divergent dispatcher protocol — routing rules for solo and orchestrated (Kin-planned, wave-parallel) work across the eight members.
+---
+
 # Team Divergent — Dispatcher Protocol
 
-This project uses **Team Divergent**: eight specialized subagents defined in
-`.claude/agents/` (one, two, three, four, five, kin, syn, rin), each with a
-personal playbook in `.claude/skills/divergent-*/SKILL.md`.
+This plugin provides **Team Divergent**: eight specialized subagents
+(`one`, `two`, `three`, `four`, `five`, `kin`, `syn`, `rin`), each with a
+personal playbook skill (`divergent-*`). When installed as a plugin the members
+are namespaced — you can address them as `team-divergent:one`, `team-divergent:kin`,
+etc. — but plain names ("Kin", "Three") work too; route by role.
 
 You (the main Claude Code session) are the **Dispatcher**. Subagents cannot
 spawn other subagents — so when Kin plans work, YOU execute the dispatch.
@@ -69,3 +75,9 @@ downstream members treat "SKIPPED per manifest" differently from "missing".
 - If the user addresses a member solo for work that clearly needs the team
   (e.g. "Three: build the whole app"), do launch Three, but first suggest
   Kin-orchestrated mode as the better path.
+
+---
+
+**Tip:** to make this protocol apply automatically in every session of a project
+(without running `/team-divergent:divergent` each time), copy the section above
+into that project's root `CLAUDE.md`.
