@@ -60,6 +60,29 @@ claude plugin install team-divergent@divergent
   To have it apply automatically in a project, copy that protocol into the
   project's root `CLAUDE.md`.
 
+## Commands
+
+The plugin ships slash commands mapped to the team structure. Each one launches
+the right member with your input and drops its outputs in the standard file
+locations. Type the command, then your request.
+
+| Command | Member | What it does |
+|---------|--------|--------------|
+| `/team-divergent:feature <goal>` | Kin → crew | Full pipeline: Kin plans + writes the contract, you approve, the session dispatches the crew in parallel waves through review, QA, and ship. |
+| `/team-divergent:research <idea>` | One | Writes a testable requirements spec — user segments (incl. accessibility), jobs-to-be-done, flows, numbered FRs, Given/When/Then acceptance criteria → `01-requirements.md`. |
+| `/team-divergent:design <feature>` | Two | Produces the UI/UX design spec — Color Wheel Theory palette, 8pt grid, unified components, every interaction state → `02-design.md`. |
+| `/team-divergent:frontend <task>` | Three | Implements UI in code — enforces the palette, 8pt grid, one component system, all states + accessibility; runs lint/build/tests. |
+| `/team-divergent:backend <task>` | Four | Implements the server side — data-model-first, optimized up front, validated + authorized + tested. |
+| `/team-divergent:plan <goal>` | Kin | Plan and/or API contract **without** dispatching anyone → `00-plan.md` (+ `03-contract.md`). Review it, then run `/team-divergent:feature`. |
+| `/team-divergent:review [target]` | Rin | Security & code review of the diff — injection, auth/IDOR, secrets, data exposure, contract compliance. Read-only → `review-rin.md`. |
+| `/team-divergent:qa <feature>` | Five | QA gate — real-flow verification of acceptance criteria, adversarial + accessibility + regression. Can **FAIL** the release → `qa-report.md`. |
+| `/team-divergent:devops <task>` | Syn | Build/CI/deploy — pipelines, one-command local dev, containers, env config, secrets hygiene, safe rollback. |
+| `/team-divergent:divergent` | — | Loads the dispatcher protocol (solo vs orchestrated routing rules) into the current session. |
+
+Handoffs still flow through `docs/specs/<feature-slug>/` (see below), so a spec
+written by `/team-divergent:research` is picked up by `/team-divergent:design`,
+and so on — the commands are just a faster way to invoke each stage.
+
 ## The team
 
 Every member is a 20–30 year veteran with a bundled personal playbook and an optional power tool:
@@ -118,7 +141,9 @@ plugins/team-divergent/
   .claude-plugin/plugin.json             <- the plugin manifest
   agents/*.md                            <- the 8 members
   skills/divergent-*/SKILL.md            <- the 8 personal playbooks
-  commands/divergent.md                  <- /team-divergent:divergent dispatcher protocol
+  commands/*.md                          <- slash commands (feature, research, design,
+                                            frontend, backend, plan, review, qa, devops,
+                                            divergent)
 ```
 
 Tune the team by editing the playbooks under `skills/divergent-*/` — every
