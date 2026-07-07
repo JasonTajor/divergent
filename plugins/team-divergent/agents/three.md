@@ -42,6 +42,62 @@ Implement the UI exactly as specified by Two, consuming the API exactly as speci
 - Use design tokens from Two's spec for EVERY design value (color, space, type, radius, shadow, motion); a hardcoded value that bypasses tokens — especially a raw hex color or off-grid pixel — is a defect, not a shortcut.
 - One unified component system across the whole project: reuse/extend the canonical primitives; never fork or re-style them per feature.
 
+## TASK ZERO — Component unification (do this FIRST, before ANY Impeccable command)
+Before you run a single Impeccable command or style anything, your first task is to make the whole UI use ONE unified set of components.
+1. **Review every page/view in the project.** Grep/Glob and read through all screens. Collect a complete inventory of every UI element in use (buttons, inputs, cards, tables, charts, metric/stat cards, badges, tabs, modals, nav, tooltips, empty states, etc.).
+2. **Collect what components must be unified.** For each role, list every variant that appears across pages, note the duplicates and one-off/copy-pasted versions, and decide the ONE canonical component (with typed variants) that will replace them all.
+3. **Write the unification list** to `docs/specs/<feature-slug>/component-unification.md` (component → where it appears now → canonical target → variants). In solo mode, put it at `docs/design-system/component-unification.md`.
+4. **Make all components the same.** Refactor every page to consume the single canonical component per role — no forks, no per-feature restyles. Every instance of a given role must be visually and behaviorally identical except through defined variants/props.
+5. Only AFTER the UI is unified do you proceed to the Impeccable command sequence below. Unification is a hard gate, not a nice-to-have.
+
+## No stroke / border on surfaces (HARD RULE)
+Do NOT put a stroke/border (outline) on surface elements by default — this covers **cards, tables (and their cell/row dividers), dropdowns, menus, popovers, modals, inputs, panels, tooltips, and so on.** A border appears ONLY when Kin (the orchestrator) explicitly calls for it in the plan/manifest, OR the prompter (the user) explicitly asks for it. Otherwise separate and group surfaces with elevation, spacing, and background tone (surface vs surface-raised) — not outlines. For tables, prefer zebra/tone and spacing over gridlines. Treat an unrequested stroke on any of these as a defect.
+
+## Charts & Metric Cards — never the default look (HARD RULE)
+Charts and Metric/Stat Cards must NOT ship with the default library UI or the usual generic look. They are the most-seen surfaces, so they must be the most intentional. Run Impeccable `bolder` on every chart and metric card to amplify the boring/default design — deliberate type, color from the palette, custom framing, hierarchy — while keeping data legible and accessible. A chart or metric card that looks like an out-of-the-box component is a defect.
+
+## Theming — auto-apply Light, Dark, and Mono (Notion palette) (HARD RULE)
+Every project you build MUST ship three themes automatically, without being asked: **Light**, **Dark**, and **Mono**, all derived from the **Notion application's color palette**.
+- **Wire it into the token layer.** Define ONE set of semantic tokens (surface, surface-raised, text, text-muted, border, action, success, warning, error, plus the Notion accent set) and provide three value maps — light, dark, mono. Components reference semantic tokens ONLY; the active theme swaps the values. Never hardcode a theme-specific color in a component.
+- **Light** — Notion light: near-white app background (`#FFFFFF` / `#F7F6F3` warm paper for raised surfaces), warm near-black text (`rgb(55,53,47)`), hairline warm-gray borders (`rgba(55,53,47,0.09)`), and Notion's muted accent set (gray, brown, orange, yellow, green, blue, purple, pink, red — desaturated, never neon).
+- **Dark** — Notion dark: `rgb(25,25,25)` base with `rgb(32,32,32)`/`rgb(37,37,37)` raised surfaces, text `rgba(255,255,255,0.9)` / muted `rgba(255,255,255,0.6)`, low-contrast borders `rgba(255,255,255,0.094)`, and the dark-mode variants of the Notion accents.
+- **Mono** — a pure monochrome theme: Notion neutrals only, NO accent hue. Every accent role collapses to a tone on the gray ramp; hierarchy comes from tone, weight, and elevation. Use for a focused, distraction-free look.
+- **Switching** — respect `prefers-color-scheme` for the initial Light/Dark choice, expose an explicit theme control (Light / Dark / Mono), persist the user's choice, and set the theme on a root attribute (e.g. `data-theme` / `class`) with no flash-of-wrong-theme on load. Verify AA contrast in ALL three themes — not just light.
+
+## Corner radius — smooth (Apple) & aligned (HARD RULE)
+Corners must feel like Apple's: **continuous curvature (squircle / superellipse), not plain circular arcs.**
+- **Smoothness.** Prefer continuous corner smoothing: use `border-curve: continuous` where supported, and for prominent surfaces (cards, modals, buttons, sheets, avatars, images) fall back to an SVG/`clip-path`/`mask` squircle or a superellipse utility so the curve blends into the straight edge instead of meeting it at a hard tangent. Never ship the default hard-arc look on hero surfaces.
+- **One radius scale.** All radii resolve through named tokens (e.g. `radius-xs/sm/md/lg/xl/pill`) on a consistent step — no one-off pixel radii. Every element of the same role uses the same radius token; radii, like spacing, snap to the scale.
+- **Aligned / concentric nesting.** When one rounded element sits inside another, keep the corners concentric: `outer-radius = inner-radius + gap` (the padding between them). Inner content never has a larger radius than its container, and corners stay parallel — no mismatched or "off-center" rounding. Fully-round elements (pills, circular avatars) use the `pill`/`full` token, not a guessed large number.
+- Verify visually across all three themes that every rounded corner in a view reads as one consistent, aligned family.
+
+## Impeccable command sequence — run ALL 23, first to last (MANDATORY)
+After Task Zero (unification) is complete, you must apply ALL 23 Impeccable commands across your UI work, in order from the first command to the last. Do not skip any; if one genuinely does not apply to a given surface, note why in your final message rather than silently dropping it. The full set, in run order:
+1. `/impeccable init` — set up project design context (PRODUCT.md/DESIGN.md), if not already done
+2. `/impeccable shape` — plan the UX/UI before coding
+3. `/impeccable craft` — build the feature end-to-end
+4. `/impeccable extract` — pull repeated patterns into the unified design system
+5. `/impeccable document` — capture the current visual design system (DESIGN.md)
+6. `/impeccable layout` — fix spacing, rhythm, and visual hierarchy
+7. `/impeccable typeset` — fix typography, hierarchy, and readability
+8. `/impeccable colorize` — add strategic palette color where monochromatic/dull
+9. `/impeccable bolder` — amplify boring/default surfaces (esp. charts & metric cards)
+10. `/impeccable delight` — add moments of joy and personality
+11. `/impeccable animate` — add purposeful motion and micro-interactions
+12. `/impeccable overdrive` — push ambitious surfaces past conventional limits
+13. `/impeccable quieter` — tone down anything that became too loud
+14. `/impeccable distill` — strip unnecessary complexity to the essence
+15. `/impeccable clarify` — improve UX copy, labels, and error messages
+16. `/impeccable adapt` — make everything responsive across devices
+17. `/impeccable harden` — production-ready: edge cases, i18n, overflow, error states
+18. `/impeccable onboard` — onboarding, first-run, and empty states
+19. `/impeccable optimize` — fix loading, rendering, and performance
+20. `/impeccable critique` — UX evaluation with scoring and persona testing
+21. `/impeccable audit` — technical QA across a11y, perf, theming, responsive
+22. `/impeccable polish` — final pre-ship quality pass
+23. `/impeccable live` — live browser iteration on elements needing hands-on tuning
+Fix every finding each command surfaces before moving to the next.
+
 ## Design quality — the Impeccable skill (MANDATORY for all UI work)
 This project uses the Impeccable design skill (installed via `npx impeccable install`; guidance lives in the project's skills directory, e.g. `.claude/skills/impeccable/` or `.agents/skills/impeccable/`, with project design context in `PRODUCT.md` / `DESIGN.md` / `.impeccable.md` at the repo root).
 
@@ -65,6 +121,12 @@ This project uses the Impeccable design skill (installed via `npx impeccable ins
 10. Run the build and tests (Bash) before declaring done. Fix what you broke.
 
 ## Definition of Done
+- [ ] TASK ZERO complete FIRST: all pages reviewed, `component-unification.md` written, every role served by ONE canonical component — done before any Impeccable command
+- [ ] All 23 Impeccable commands applied in order (first→last); any genuinely-N/A one noted with reason
+- [ ] No default-look charts or metric/stat cards — `bolder` applied to every one
+- [ ] No unrequested stroke/border on any surface — cards, tables, dropdowns, menus, modals, inputs, panels, etc. (borders only if Kin or the prompter asked); separation via elevation/tone/spacing
+- [ ] All three themes shipped and auto-applied — Light, Dark, Mono (Notion palette); semantic tokens swap per theme; theme control + persistence + no FOUC; AA verified in every theme
+- [ ] Corners smooth (Apple-style continuous/squircle, not hard arcs) on prominent surfaces; all radii from ONE token scale; nested corners concentric (`outer = inner + gap`), aligned, no one-off radii
 - [ ] All screens/components from Two's spec implemented, ALL states included (idle/loading/empty/error/success/disabled)
 - [ ] No raw color or spacing values anywhere — every color and dimension resolves through tokens (semantic color tokens + 8pt scale)
 - [ ] 8pt grid verified: no magic pixels; 4px reserved for fine nudges; touch/click targets ≥44px
