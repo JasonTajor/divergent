@@ -1,11 +1,11 @@
 ---
 name: divergent-frontend
-description: Three's frontend engineering playbook for Team Divergent. Use for any UI implementation, component architecture, state management, or client-side API integration work. Encodes component design rules, state handling, performance, and accessibility standards. Complements the Impeccable skill.
+description: Dauntless's frontend engineering playbook for Team Divergent. Use for any UI implementation, component architecture, state management, or client-side API integration work. Encodes component design rules, state handling, performance, and accessibility standards. Complements the Divergent Design System (DIVERGENT-DESIGN.md).
 ---
 
-# Divergent Frontend — Three's Playbook
+# Divergent Frontend — Dauntless's Playbook
 
-Works WITH Impeccable: Impeccable governs visual execution quality; this playbook governs Three's engineering craft.
+Works WITH the Divergent Design System (`DIVERGENT-DESIGN.md`): that file governs visual/UX quality (the configurable tokens, surface rules, chart specs, and ten UX Laws); this playbook governs Dauntless's engineering craft. Emit its tokens into the styling layer, apply the resolved `config` (surfaceMode/theme/radius/accent), obey its ten UX Laws — then apply the craft below.
 
 ## Component rules
 - Small, single-purpose components; if a component needs "and" to describe it, split it
@@ -14,12 +14,12 @@ Works WITH Impeccable: Impeccable governs visual execution quality; this playboo
 - Reuse before rebuild: before building ANY UI, search the codebase for an existing component FIRST, every time — reuse or extend it, never fork it
 
 ## Color system fidelity (Color Wheel Theory)
-Two owns the palette; you keep it intact in code. It's a harmony-based scheme (OKLCH/HSL, even tonal ramp) — you never dilute it.
-- Colors come ONLY from Two's named token palette. No raw/random hex, no one-off color in a component. A needed-but-missing color goes to `docs/specs/<feature-slug>/blockers.md` for Two, OR gets added to the token file as a properly-derived, named token — never inlined.
+Amity owns the palette; you keep it intact in code. It's a harmony-based scheme (OKLCH/HSL, even tonal ramp) — you never dilute it.
+- Colors come ONLY from Amity's named token palette. No raw/random hex, no one-off color in a component. A needed-but-missing color goes to `docs/specs/<feature-slug>/blockers.md` for Amity, OR gets added to the token file as a properly-derived, named token — never inlined.
 - Implement semantic tokens (surface / text / border / action / success / warning / error) mapped onto the ramp. Components reference semantic tokens, never raw ramp values.
 - Hold the 60-30-10 distribution in composition; ONE accent for the primary action — don't spread accent across the screen.
 - Contrast is a build gate: verify WCAG AA (4.5:1 body text, 3:1 large text / UI). Never convey state by color alone — pair it with icon/text/shape.
-- Forbidden: the generic purple→blue gradient and any other unmotivated gradient. A gradient must have a reason Two specified.
+- Forbidden: the generic purple→blue gradient and any other unmotivated gradient. A gradient must have a reason Amity specified.
 
 ## 8pt grid enforced by the setup
 The grid is enforced by configuration, not willpower — wire it once so the scale is the only easy path.
@@ -42,7 +42,7 @@ Top priority for the owner: the WHOLE project renders from one component library
 ## The API boundary
 - ALL contract calls live in one thin client module; components never call HTTP directly
 - Parse/validate responses at the boundary; the rest of the app trusts typed data
-- Errors are handled where the user can act on them, with the copy Two specified
+- Errors are handled where the user can act on them, with the copy Amity specified
 
 ## Performance defaults
 - Ship less: no dependency for what 15 lines of code can do
@@ -68,4 +68,4 @@ Every recipe finishes the same way: touch frontend files only, verify (build/lin
 - Swallowing promise rejections; empty catch blocks
 - A hardcoded color or spacing value that bypasses tokens — a raw/one-off hex, or an off-8pt-grid pixel — it's a defect, not a shortcut
 - The templated "AI look" (anti-slop tells): Inter-for-everything by default, purple→blue or any unmotivated gradient, cards-in-cards, decorative icon tiles above headings, gray text on colored fills, gratuitous glassmorphism/shadows, emoji-as-icons
-- Conveying a state by color alone; shipping without an idle/loading/empty/error/success/disabled state Two specified
+- Conveying a state by color alone; shipping without an idle/loading/empty/error/success/disabled state Amity specified

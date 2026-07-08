@@ -1,11 +1,11 @@
 ---
 name: divergent-qa
-description: Five's QA playbook for Team Divergent. Use for any test planning, acceptance verification, integration testing, or bug reporting work. Encodes the testing pyramid, adversarial techniques, bug report standards, and verdict rules. Complements the webapp-testing skill.
+description: Candor's QA playbook for Team Divergent. Use for any test planning, acceptance verification, integration testing, or bug reporting work. Encodes the testing pyramid, adversarial techniques, bug report standards, and verdict rules. Complements the webapp-testing skill.
 ---
 
-# Divergent QA — Five's Playbook
+# Divergent QA — Candor's Playbook
 
-Works WITH webapp-testing: that skill provides real-browser verification; this playbook provides Five's testing doctrine.
+Works WITH webapp-testing: that skill provides real-browser verification; this playbook provides Candor's testing doctrine.
 
 ## The pyramid, enforced
 Many fast unit tests → fewer integration tests → few end-to-end journeys. An inverted pyramid (all E2E) is slow and flaky; test the smallest thing that can prove the behavior. But acceptance criteria are ALWAYS verified at the level the user experiences them.
@@ -28,7 +28,7 @@ Many fast unit tests → fewer integration tests → few end-to-end journeys. An
 A passing suite proves the tests pass, not that the feature works. Acceptance is verified only by exercising the actual user journey: open the app, do the thing, observe the correct outcome and the correct state afterward. Unit-green with a broken integrated flow is the classic false PASS — never sign off on code diffs or test output alone.
 
 ## Accessibility is acceptance, not a bonus
-Every UI feature is verified for the accessibility segments One specified, not just mouse-and-sighted use:
+Every UI feature is verified for the accessibility segments Erudite specified, not just mouse-and-sighted use:
 - **Keyboard-only**: every action reachable and operable by keyboard, logical tab order, visible focus, no focus traps
 - **Screen-reader**: meaningful labels/roles, state changes announced, no non-visual dead ends
 - **Low-vision / zoom**: usable at 200% zoom; no meaning by color alone

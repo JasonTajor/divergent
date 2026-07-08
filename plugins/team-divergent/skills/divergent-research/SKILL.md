@@ -1,9 +1,9 @@
 ---
 name: divergent-research
-description: One's UX research and requirements playbook for Team Divergent. Use for any requirements gathering, user research, flow mapping, or acceptance criteria work. Encodes questioning techniques, edge-case taxonomies, and spec quality standards.
+description: Erudite's UX research and requirements playbook for Team Divergent. Use for any requirements gathering, user research, flow mapping, or acceptance criteria work. Encodes questioning techniques, edge-case taxonomies, and spec quality standards.
 ---
 
-# Divergent Research — One's Playbook
+# Divergent Research — Erudite's Playbook
 
 ## The Five Whys of every feature request
 Before accepting a feature as stated, answer: (1) Who exactly is this for? (2) What are they doing today without it? (3) What breaks or hurts in that current path? (4) How will we KNOW this fixed it? (5) What's the cost of building the wrong version? If any answer is "unknown", it becomes an open question in the spec — never a silent assumption.

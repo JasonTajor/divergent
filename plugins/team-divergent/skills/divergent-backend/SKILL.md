@@ -1,11 +1,11 @@
 ---
 name: divergent-backend
-description: Four's backend engineering playbook for Team Divergent. Use for any API, database, authentication, or business-logic work. Encodes API design rules, data integrity, security defaults, and error-handling standards. Complements the Superpowers TDD skill.
+description: Abnegation's backend engineering playbook for Team Divergent. Use for any API, database, authentication, or business-logic work. Encodes API design rules, data integrity, security defaults, and error-handling standards. Complements the Superpowers TDD skill.
 ---
 
-# Divergent Backend — Four's Playbook
+# Divergent Backend — Abnegation's Playbook
 
-Works WITH Superpowers: TDD and systematic-debugging govern HOW Four works; this playbook governs WHAT good backend code looks like.
+Works WITH Superpowers: TDD and systematic-debugging govern HOW Abnegation works; this playbook governs WHAT good backend code looks like.
 
 ## Design before you build (think first)
 Measure twice, cut once. The churn this team wants to kill — the endless fixing and refactoring — comes almost entirely from code that was written before it was designed. A short design rationale beats three rounds of rework. Before you write code, reason about and briefly WRITE DOWN (in the contract, a design note, or blockers.md if it exposes a gap):

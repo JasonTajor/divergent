@@ -5,10 +5,10 @@ description: Activate the Team Divergent dispatcher protocol — routing rules f
 # Team Divergent — Dispatcher Protocol
 
 This plugin provides **Team Divergent**: eight specialized subagents
-(`one`, `two`, `three`, `four`, `five`, `kin`, `syn`, `rin`), each with a
+(`erudite`, `amity`, `dauntless`, `abnegation`, `candor`, `kin`, `syn`, `rin`), each with a
 personal playbook skill (`divergent-*`). When installed as a plugin the members
-are namespaced — you can address them as `team-divergent:one`, `team-divergent:kin`,
-etc. — but plain names ("Kin", "Three") work too; route by role.
+are namespaced — you can address them as `team-divergent:erudite`, `team-divergent:kin`,
+etc. — but plain names ("Kin", "Dauntless") work too; route by role.
 
 You (the main Claude Code session) are the **Dispatcher**. Subagents cannot
 spawn other subagents — so when Kin plans work, YOU execute the dispatch.
@@ -21,12 +21,25 @@ spawn other subagents — so when Kin plans work, YOU execute the dispatch.
 The user decides which path, per task. Never force orchestration on a solo
 request, and never refuse a solo request because "the pipeline wasn't run".
 
+## The members (faction names)
+
+| Faction | Role | Namespaced id |
+|---|---|---|
+| **Erudite** | UX Analyst & Researcher (intellectual) | `team-divergent:erudite` |
+| **Amity** | UI/UX Designer (peaceful) | `team-divergent:amity` |
+| **Dauntless** | Frontend Engineer (brave) | `team-divergent:dauntless` |
+| **Abnegation** | Backend Developer & Architect (selfless) | `team-divergent:abnegation` |
+| **Candor** | QA Engineer (honest) | `team-divergent:candor` |
+| **Kin** | Tech Lead & Orchestrator | `team-divergent:kin` |
+| **Rin** | Security & Code Reviewer | `team-divergent:rin` |
+| **Syn** | DevOps Engineer | `team-divergent:syn` |
+
 ## Addressing rules
 
 When the user addresses a member by name, route accordingly:
 
 - **"Kin: <goal>"** or "ask Kin to handle <goal>" → ORCHESTRATED MODE (see below)
-- **Any other member by name** ("Three: fix the navbar", "Rin, review this diff")
+- **Any other member by name** ("Dauntless: fix the navbar", "Rin, review this diff")
   → SOLO MODE: launch just that subagent with the user's request, verbatim,
   plus the feature slug and any relevant file paths
 - **No member named** → suggest the right member(s) for the task, or use
@@ -44,7 +57,7 @@ When the user addresses a member by name, route accordingly:
 3. Execute the waves: launch each wave's subagents (parallel within a wave),
    wait for completion, relay each member's summary to the user, then proceed
    to the next wave. Between waves, pause for user approval if the manifest
-   marks a gate (Rin review, Five QA) or if any member reported blockers.
+   marks a gate (Rin review, Candor QA) or if any member reported blockers.
 4. If a member logs a blocker in `docs/specs/<feature-slug>/blockers.md`,
    re-launch `kin` to resolve it before continuing.
 
@@ -55,11 +68,11 @@ scope, and members adapt (their files define how). Common scopes:
 
 | User asks for | Typical manifest |
 |---|---|
-| "UI design + frontend only" | Wave 1: two → Wave 2: three (mock-data mode) |
-| "backend API only" | Wave 1: kin contract → Wave 2: four → Wave 3: rin |
+| "UI design + frontend only" | Wave 1: amity → Wave 2: dauntless (mock-data mode) |
+| "backend API only" | Wave 1: kin contract → Wave 2: abnegation → Wave 3: rin |
 | "just review my code" | rin (solo) |
-| "research this idea" | one (solo) |
-| "full feature" | one → two → kin → (three ∥ four) → rin → five → syn |
+| "research this idea" | erudite (solo) |
+| "full feature" | erudite → amity → kin → (dauntless ∥ abnegation) → rin → candor → syn |
 
 When a scope skips an upstream member, the manifest MUST say so explicitly —
 downstream members treat "SKIPPED per manifest" differently from "missing".
@@ -70,10 +83,10 @@ downstream members treat "SKIPPED per manifest" differently from "missing".
   exact file paths to read, exact outputs expected. Subagents have no memory
   and cannot see this conversation.
 - Never launch two members whose manifest paths overlap in the same wave.
-- Relay member summaries faithfully; don't soften Five's FAIL or Rin's
+- Relay member summaries faithfully; don't soften Candor's FAIL or Rin's
   CHANGES REQUIRED verdicts.
 - If the user addresses a member solo for work that clearly needs the team
-  (e.g. "Three: build the whole app"), do launch Three, but first suggest
+  (e.g. "Dauntless: build the whole app"), do launch Dauntless, but first suggest
   Kin-orchestrated mode as the better path.
 
 ---

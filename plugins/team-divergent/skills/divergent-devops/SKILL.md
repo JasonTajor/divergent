@@ -33,7 +33,7 @@ install → lint → test (all suites) → build → (optional) package → depl
 
 ## 5. Observability minimum
 - Build logs answer "what version, what commit, what triggered it" at a glance.
-- The app exposes a health/readiness endpoint (ask Four if missing); the pipeline's smoke test hits it.
+- The app exposes a health/readiness endpoint (ask Abnegation if missing); the pipeline's smoke test hits it.
 
 ## 6. Definition of quality for any pipeline change
 - Runs green end-to-end (or documented dry-run where local execution is impossible)

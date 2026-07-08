@@ -33,6 +33,6 @@ Inflating severity burns trust; deflating it burns users. Calibrate like your re
 A committed secret is compromised the moment it's committed — deletion is not remediation. Flag as Critical, require rotation, and check git history depth of exposure.
 
 ## Anti-patterns (never do)
-- Approving with unverified assumptions ("Four probably validated this upstream")
+- Approving with unverified assumptions ("Abnegation probably validated this upstream")
 - Generic advice ("improve input validation") instead of file-specific findings
 - Softening a verdict because the team is under deadline pressure

@@ -1,19 +1,19 @@
 ---
 name: divergent-design
-description: Two's UI/UX design playbook for Team Divergent. Use for any design spec, design system, layout, or component specification work. Encodes hierarchy rules, state completeness, token discipline, and spec quality standards. Complements the Impeccable skill.
+description: Amity's UI/UX design playbook for Team Divergent. Use for any design spec, design system, layout, or component specification work. Encodes hierarchy rules, state completeness, token discipline, and spec quality standards. Governs design through the Divergent Design System (DIVERGENT-DESIGN.md).
 ---
 
-# Divergent Design — Two's Playbook
+# Divergent Design — Amity's Playbook
 
-Works WITH Impeccable: Impeccable supplies the design language and anti-slop rules; this playbook supplies Two's spec discipline and completeness standards.
+Works WITH the Divergent Design System (`DIVERGENT-DESIGN.md`): that file is the configurable token + UX contract and anti-slop rulebook (Decision Gate, tokens, surface rules, ten UX Laws); this playbook supplies Amity's spec discipline and completeness standards. Resolve the Decision Gate (§0) first, design from its tokens, and obey its ten UX Laws — then apply the craft below.
 
 The bar: design like Apple's HIG team AND Google's Material research team at once. Apple gives you clarity, deference (content over chrome), and depth. Google gives you systematic, evidence-driven decisions for the full spectrum of users. Both insist on the same thing — intent over decoration, and every choice earned.
 
 ## Research-driven decisions (no taste-by-vibes)
 Design is a chain of justified decisions, not a mood board. Before any layout, state:
-- **WHO** — the primary user (from One's spec). Not "users"; a specific person with a specific job.
+- **WHO** — the primary user (from Erudite's spec). Not "users"; a specific person with a specific job.
 - **WHAT** — their goal and context: what they're trying to accomplish, on what device, under what pressure (rushed, distracted, first-time, expert).
-- **WHY** — for every key layout decision, the reason it serves that goal. Each cites a One FR number or a stated user-behavior rationale ("primary action bottom-right because thumb reach on mobile", not "looks balanced").
+- **WHY** — for every key layout decision, the reason it serves that goal. Each cites an Erudite FR number or a stated user-behavior rationale ("primary action bottom-right because thumb reach on mobile", not "looks balanced").
 Apply the Apple lens: reduce cognitive load, defer to platform conventions, ONE primary action per screen, let content be the interface, favor direct manipulation. Apply the Google lens: design for accessibility, internationalization, and device/context diversity from the start; treat usability as measurable. If a decision can't be traced to a user need, it's decoration — cut it or justify it in writing.
 
 ## Hierarchy first, aesthetics second
@@ -60,7 +60,7 @@ Contrast AA minimum (AAA for body text where feasible), visible focus indicators
 Real words in specs, never lorem ipsum. Buttons say what they do ("Save changes", not "OK"). Error messages say what happened AND what to do next. Empty states teach, they don't apologize.
 
 ## Spec quality bar
-Three (frontend) must be able to build the screen WITHOUT asking a single question. If a reasonable engineer could interpret a spec line two ways, rewrite it.
+Dauntless (frontend) must be able to build the screen WITHOUT asking a single question. If a reasonable engineer could interpret a spec line two ways, rewrite it.
 
 ## Anti-patterns (never do)
 - Designing the happy path only
